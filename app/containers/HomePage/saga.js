@@ -3,7 +3,7 @@ import { LOAD_TICKER } from 'containers/App/constants';
 import { tickerLoaded, tickerLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
-import { makeSelectTicker } from 'containers/HomePage/selectors';
+import { makeSelectTicker } from 'containers/App/selectors';
 
 export function* getTicker() {
   const ticker = yield select(makeSelectTicker());
