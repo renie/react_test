@@ -34,11 +34,32 @@ const makeSelectLocation = () =>
     routerState => routerState.location,
   );
 
+const makeSelectTickerList = () =>
+  createSelector(
+    selectGlobal,
+    globalState => globalState.tickerList,
+  );
+
+const makeSelectLoadingTickerList = () =>
+  createSelector(
+    selectGlobal,
+    globalState => globalState.loadingTickerList,
+  );
+
+const makeSelectErrorTickerList = () =>
+  createSelector(
+    selectGlobal,
+    globalState => globalState.errorTickerList,
+  );
+
 export {
   selectGlobal,
   makeSelectTicker,
   makeSelectLoading,
   makeSelectError,
   makeSelectData,
+  makeSelectTickerList,
+  makeSelectLoadingTickerList,
+  makeSelectErrorTickerList,
   makeSelectLocation,
 };

@@ -15,6 +15,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import LocaleToggle from '../LocaleToggle';
 
 import GlobalStyle from '../../global-styles';
+import { Center } from './Center';
 
 export default function App() {
   return (
@@ -23,7 +24,9 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
-      <LocaleToggle />
+      <Center>
+        <LocaleToggle />
+      </Center>
       <GlobalStyle />
     </div>
   );

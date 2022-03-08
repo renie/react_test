@@ -9,8 +9,8 @@ function List(props) {
   let content = <div />;
 
   if (props.items) {
-    content = props.items.map((item, index) => (
-      <ComponentToRender key={`item-${index * index}`} item={item} />
+    content = props.items.map(item => (
+      <ComponentToRender key={item} item={item} />
     ));
   } else {
     content = <ComponentToRender />;

@@ -12,31 +12,42 @@ import {
   makeSelectLoading,
   makeSelectError,
   makeSelectTicker,
+  makeSelectTickerList,
+  makeSelectLoadingTickerList,
 } from 'containers/App/selectors';
-import DataList from 'components/DataList';
 import reducer from 'containers/App/reducer';
+import DataList from 'components/DataList';
+import LoadingIndicator from 'components/LoadingIndicator';
+import { Combo } from './Combo';
+import { Heading } from './Heading';
 import messages from './messages';
-import { loadTicker, changeTicker } from '../App/actions';
+import { loadTicker, changeTicker, loadTickerList } from '../App/actions';
 import saga from './saga';
 
 const key = 'home';
 
 export function HomePage({
-  ticker,
+  selectedticker,
   loading,
   error,
   data,
+  loadingTickerList,
+  tickerList,
   onSubmitForm,
   onChangeTicker,
+  onPageLoad,
 }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
   useEffect(() => {
-    if (ticker && ticker.trim().length > 0) onSubmitForm();
+    if (selectedticker && selectedticker.trim().length > 0) {
+      onSubmitForm();
+      onPageLoad();
+    }
   }, []);
 
-  const tickerListDataProps = {
+  const tickerDataProps = {
     loading,
     error,
     data,
@@ -44,21 +55,20 @@ export function HomePage({
 
   return (
     <>
-      <h1>
+      <Heading>
         <FormattedMessage {...messages.header} />
-      </h1>
-      <form onSubmit={onSubmitForm}>
-        <label htmlFor="ticker">
-          <input
-            id="ticker"
-            type="text"
-            placeholder="tBTCUSD"
-            value={ticker}
-            onChange={onChangeTicker}
-          />
-        </label>
-      </form>
-      <DataList {...tickerListDataProps} />
+      </Heading>
+      {loadingTickerList && <LoadingIndicator />}
+      {!loadingTickerList && (
+        <Combo defaultValue={selectedticker} onChange={onChangeTicker}>
+          {tickerList.map(item => (
+            <option key={item} value={`t${item}`}>
+              {item}
+            </option>
+          ))}
+        </Combo>
+      )}
+      <DataList {...tickerDataProps} />
     </>
   );
 }
@@ -66,17 +76,23 @@ export function HomePage({
 HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  data: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  data: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  selectedticker: PropTypes.string,
   onSubmitForm: PropTypes.func,
-  ticker: PropTypes.string,
+  onPageLoad: PropTypes.func,
   onChangeTicker: PropTypes.func,
+  loadingTickerList: PropTypes.bool,
+  errorTickerList: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  tickerList: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectData(),
-  ticker: makeSelectTicker(),
+  selectedticker: makeSelectTicker(),
   loading: makeSelectLoading(),
   error: makeSelectError(),
+  loadingTickerList: makeSelectLoadingTickerList(),
+  tickerList: makeSelectTickerList(),
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -88,6 +104,9 @@ export function mapDispatchToProps(dispatch) {
     onSubmitForm: evt => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(loadTicker());
+    },
+    onPageLoad: () => {
+      dispatch(loadTickerList());
     },
   };
 }

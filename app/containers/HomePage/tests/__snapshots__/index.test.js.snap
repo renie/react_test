@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<HomePage /> should render and match the snapshot 1`] = `
-<h1>
+<h1
+  class="Heading-sc-9t76vb-0 gbHpze"
+>
   <span>
     This is the HomePage container!
   </span>
