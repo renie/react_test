@@ -20,13 +20,13 @@ import { Center } from './Center';
 export default function App() {
   return (
     <div>
+      <Center>
+        <LocaleToggle />
+      </Center>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
-      <Center>
-        <LocaleToggle />
-      </Center>
       <GlobalStyle />
     </div>
   );

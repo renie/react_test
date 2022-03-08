@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import List from 'components/List';
 import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 import styled from 'styled-components';
+import messages from '../../containers/HomePage/messages';
 
 const PropName = styled.strong`
   background: #0d6efd;
@@ -15,6 +17,7 @@ const PropName = styled.strong`
   line-height: 3em;
   padding: 0 0.5em;
   flex: 1.5;
+  text-transformation: uppercase;
 `;
 
 const PropDesc = styled.p`
@@ -42,7 +45,9 @@ function DataList({ loading, error, data }) {
     Object.entries(data).forEach(prop =>
       formattedList.push(
         <>
-          <PropName>{prop[0]}</PropName>
+          <PropName>
+            <FormattedMessage {...messages[prop[0]]} />
+          </PropName>
           <PropDesc>{prop[1]}</PropDesc>
         </>,
       ),

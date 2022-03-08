@@ -1,3 +1,15 @@
 {
-  "reactTest.containers.HomePage.header": "Título"
+  "reactTest.containers.HomePage.header": "Rastreador de Tickers",
+  "reactTest.containers.HomePage.change_language": "Mudar idioma",
+  "reactTest.containers.HomePage.symbol": "símbolo",
+  "reactTest.containers.HomePage.bid": "último lance",
+  "reactTest.containers.HomePage.bid_size": "últimos 25 lances (s)",
+  "reactTest.containers.HomePage.ask": "ultimo pedido",
+  "reactTest.containers.HomePage.ask_size": "últimos 25 lances (s)",
+  "reactTest.containers.HomePage.daily_change": "variação diária",
+  "reactTest.containers.HomePage.daily_change_relative": "variação diária relativa",
+  "reactTest.containers.HomePage.last_price": "último preço",
+  "reactTest.containers.HomePage.volume": "volume",
+  "reactTest.containers.HomePage.high": "alta",
+  "reactTest.containers.HomePage.low": "baixa"
 }
